@@ -1,0 +1,4 @@
+---
+slug: dynamics
+name: Dynamics
+---

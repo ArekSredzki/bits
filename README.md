@@ -1,6 +1,6 @@
-![](_assets/images/documentation/chalk-intro@2x.png)
+## Floating Bits
 
-Chalk is a high quality, completely customizable, performant and 100% free blog template for Jekyll.
+My blog about autonomous robotics.
 
 ## Overview
 
@@ -11,7 +11,6 @@ Features:
   - Beautified link sharing in Facebook and other social media.
   - Automatic time to read post indicator.
   - Automatic RSS feed.
-  - About page.
   - 404 page.
   - SEO optimized.
   - PageSpeed optimized.
