@@ -167,6 +167,12 @@
     margin-bottom: 0;
     vertical-align: middle;
   }
+  p + ul {
+    margin-top: -30px;
+  }
+  li > ul {
+    margin-bottom: 0;
+  }
 }
 
 .article-comments {
