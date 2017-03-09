@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Behaviour Specific Scenarios"
-description: "A definition of target scenarios, in which candidate control/planning systems will be evaluated."
+description: "A definition of target scenarios, in which candidate control/planning systems will be evaluated for tuning specific edge cases."
 tags: [control, simulation]
 ---
 
-In order to effectively design control and planning systems for an agent, we must clearly define the scenarios in which it will be evaluated and proven to be stable. What is described below is a comprehensive test suite and will likely be refined
+In order to effectively design control and planning systems for an agent, we must clearly define the scenarios in which it will be evaluated and proven to be stable. What is described below is a comprehensive test suite and will likely be refined.
 
 ## Generic obstacle scenario classes
 - $$a$$ No obstacles
