@@ -26,7 +26,7 @@ $$TrueCurrentSpeed = 1 kts$$
 
 $$TrueCurrentAngle = \pi/4$$
 
-![Triangle-Windward-Leeward Course](/assets/2017-02-11-evaluation-scenario/race_course.svg)
+{% include image.html path="2017-02-11-evaluation-scenario/race_course.svg" alt="Race Course" %}
 
 ## Obstacles
 In order to test the obstacle avoidance capabilities of the controller, randomly emitted obstacles will be generated from one of the edges of the "world" at a period of 10s.

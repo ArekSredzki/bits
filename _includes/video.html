@@ -1,0 +1,4 @@
+<video style="width:{{include.width}}" {% if include.thumb-path != null %}poster="{% asset_path '{{ include.thumb-path }}' %}"{% endif %} controls>
+  <source src="{% asset_path '{{ include.path }}' %}" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
