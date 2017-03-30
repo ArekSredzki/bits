@@ -1,4 +1,0 @@
----
-slug: planning
-name: Planning
----

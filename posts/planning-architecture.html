@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Planning Architecture Overview</title>
+  <meta name="description" content="An overview of the planning architecture for a fully autonomous sailboat.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Planning Architecture Overview">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/planning-architecture">
+  <meta property="og:description" content="An overview of the planning architecture for a fully autonomous sailboat.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/planning-architecture">
+  <meta name="twitter:title" content="Planning Architecture Overview">
+  <meta name="twitter:description" content="An overview of the planning architecture for a fully autonomous sailboat.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Planning Architecture Overview</h1>
+            <p>An overview of the planning architecture for a fully autonomous sailboat.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                March 5, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/planning">planning</a>
+                
+                  <a href="/tag/micro">micro</a>
+                
+                  <a href="/tag/local">local</a>
+                
+                  <a href="/tag/global">global</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p>This page provides an overview of the planning architecture for a fully autonomous sailboat.</p>
+
+<h2 id="background">Background</h2>
+
+<p>This system has a expansive scope that includes finding a least-cost path between any two points on the planet while avoiding dynamic obstacles in real-time considering the kinodynamic constraints of the vessel. To our knowledge, no systems with comparable scope exist, let alone for a sailboat, making it first in class. As such, it will be evaluated component-wise against existing systems with less functionality. More on the evaluation method <a href="/posts/evaluation-scenario">here</a>.</p>
+
+<h3 id="previous-works">Previous Works</h3>
+<p>Two-stage planning systems are widely used in robotics, where the high level, low-resolution planner is referred to as Global and the high-resolution planner is named Local. Historically, the operation of these systems is confined to a relatively small areas, meaning that the Global planner handles an area between tens of meters (e.g. a room) and maximally tens of kilometers across (e.g. a bounded outdoor area). Though autonomous cars require navigation solutions on a global scale, the motion is restricted to a graph that is trivially constructed from the physical road network rather than in free space.</p>
+
+<p>In contrast to most systems, our Global planner is a true, planet-level routing solution. Because of this, the distances between points in the resulting path are great…</p>
+
+<p><em>TODO: Expand on the limitations of existing solutions. Primarily naive obstacle avoidance.</em></p>
+
+<p>In tests, we have consistently seen super-human performance with our previous generation control systems. This is primarily because of the vessel’s ability to precisely sense pose state and execute smooth actions in response. However, in practice there exists disparity between human-controlled and existing autonomous sailboats because of limited environmental perception and planning capabilities.</p>
+
+<p>The deliverables of this work are significant improvements to all levels of planning, enabling safe autonomous sailboat operation both from .</p>
+
+<h2 id="challenges">Challenges</h2>
+<p>Because of no-go zones, sailing comes with a unique control challenge, requiring discontinuous “actions”.</p>
+
+<p><em>TODO: Expand on this</em></p>
+
+<h2 id="global">Global</h2>
+<p>See <a href="/posts/global-planner-problem-definition">this page</a>.</p>
+
+<h2 id="local">Local</h2>
+<p><em>TODO: Expand on this</em></p>
+
+<h2 id="micro">Micro</h2>
+<p><em>TODO: Expand on this</em></p>
+
+<p><em>Last updated: March 9th, 2017</em></p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Planning Architecture Overview - https://bits.arek.io//posts/planning-architecture ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/planning-architecture', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/planning-architecture', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

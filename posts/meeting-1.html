@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Meeting 1</title>
+  <meta name="description" content="A recap of meeting 1.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Meeting 1">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/meeting-1">
+  <meta property="og:description" content="A recap of meeting 1.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/meeting-1">
+  <meta name="twitter:title" content="Meeting 1">
+  <meta name="twitter:description" content="A recap of meeting 1.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Meeting 1</h1>
+            <p>A recap of meeting 1.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                January 19, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/meetings">meetings</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p><em>This is part of a series of posts that summarize my meetings with Professor Ian M. Mitchell for our own records.</em></p>
+
+<p>During the first meeting, on January 19th, we took a high-level view of the goals for this directed studies course, discussed the target problem, and established short-term deliverables.</p>
+
+<p>Originally the proposed focus of my directed studies was to develop and present a method for extending Informed RRT* (Gammell et al. 2014) to support non-linear motion planning. The proposed method would be evaluated in the application of optimal realtime motion planning for an autonomous sailboat. The main deliverable of this effort was to be a standard IEEE style conference paper that would be submitted to IROS 2017 by the March 1st draft deadline.</p>
+
+<p>However, after serious initial investigation, I concluded that improving convergence rates on an optimal solution by applying Informed RRT* would not benefit the primary challenges of kinodynamic planning for an autonomous sailboat. Most notably, these are:</p>
+<ul>
+  <li>The mode-like performance characteristics of a sailing vessel in general</li>
+  <li>The necessity for fast discovery of an initial solution</li>
+</ul>
+
+<p>The latter point here is why I have decided that Informed RRT* is not the best candidate for initial exploration of this problem. Additionally, the target problem has unique characteristics not seen in other, more commonly considered, nonholonomic robots, such as autonomous cars; the specifics of which will be discussed in an upcoming post. Ultimately we agreed that the best path to take is to focus on the problem of realtime motion planning for an autonomous sailboat. First I will explicitly define the problem space and kinodynamic constraints of the vessel. After which I will apply and evaluate existing non-linear motion planning techniques. Finally, I will present an architecture for the onboard planning/control system(s) and potentially offer an improved problem-specific planner.</p>
+
+<p>Another deliverable that was proposed and agreed upon is a reading log of relevant academic papers that I have studied. In order to keep track of the key points/findings of each paper, I will add a couple sentences below each citation. This will be available as a blog post soon.</p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Meeting 1 - https://bits.arek.io//posts/meeting-1 ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/meeting-1', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/meeting-1', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

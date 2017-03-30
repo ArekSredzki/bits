@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Meeting 4</title>
+  <meta name="description" content="A recap of meeting 4.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Meeting 4">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/meeting-4">
+  <meta property="og:description" content="A recap of meeting 4.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/meeting-4">
+  <meta name="twitter:title" content="Meeting 4">
+  <meta name="twitter:description" content="A recap of meeting 4.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Meeting 4</h1>
+            <p>A recap of meeting 4.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                February 14, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/meetings">meetings</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p><em>This is part of a series of posts that summarize my meetings with Professor Ian M. Mitchell for our own records.</em></p>
+
+<p>During the fourth meeting, on February 14th, we discussed the relevance of various control theory subfields, reviewed the scenario drafts, and defined areas of improvement.</p>
+
+<h2 id="this-weeks-highlights">This week’s highlights</h2>
+<ul>
+  <li>Prepared a <a href="/posts/reading-list-1-sailboat-control">reading list of the papers most relevant to the target problem</a>.</li>
+  <li>Explicitly defined an <a href="/posts/evaluation-scenario">evaluation scenario</a> that will be used in evaluating the proposed method in my conference paper. This will also require defining the state space and differential constraints of the vessel.
+    <ul>
+      <li>Ensure to define the resolution used for planning, distance to the goal, and the dynamic nature of obstacles.</li>
+    </ul>
+  </li>
+  <li>Create initial simulations for select controllers presented in the papers mentioned above.</li>
+  <li>Gained hands on experience with simulation in Matlab, specifically ODE45.</li>
+  <li>Completed week 5 of Georgia Tech’s Coursera course on the <a href="https://www.coursera.org/learn/mobile-robot">Control of Mobile Robots</a></li>
+  <li>Revised the set of <a href="/posts/behaviour-specific-scenarios">behaviour specific scenarios</a> that were originally proposed for evaluating sailboat controllers, but will now provide a general purpose test-set for validation and development.</li>
+</ul>
+
+<h2 id="summary-of-discussion">Summary of discussion</h2>
+<ul>
+  <li>Discussed various approaches to simulation
+    <ul>
+      <li>Discrete time vs. ODE45</li>
+      <li>The degree of model accuracy that should be used in simulations vs planning
+        <ul>
+          <li>Physics based model vs polar speed diagram (Empirical vs Theoretical)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Control integration with planning
+    <ul>
+      <li>No-go zones make sailing an interesting challenge. When an action is to be taken, it’s</li>
+      <li>Mode based control
+        <ul>
+          <li>Line following &amp; then “tack”</li>
+          <li>Though this simplifies the necessity for the generated path to be perfectly executable</li>
+          <li>Problematic in the case of realtime obstacles
+            <ul>
+              <li>Consider interrupt-based exit of modes in the presence of an obstacle being detected in the area left for it.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>More exploration must be done in this matter. Simulating various approaches is likely the best way to move forward.</li>
+    </ul>
+  </li>
+  <li>Review of the <a href="/posts/evaluation-scenario">evaluation scenario</a> draft.</li>
+  <li>Touched on the revised <a href="/posts/behaviour-specific-scenarios">behaviour specific scenarios</a>.</li>
+</ul>
+
+<h2 id="goals-for-next-meeting">Goals for next meeting</h2>
+<ul>
+  <li><em>(early goal)</em> Prepare a brief <a href="/posts/reading-list-1-sailboat-control">reading list of the papers most relevant to the target problem</a>.</li>
+  <li>Explicitly define one or two key scenarios that will be used in evaluating the proposed method in my conference paper. This will also require defining the state space and differential constraints of the vessel.
+    <ul>
+      <li>Ensure to define the resolution used for planning, distance to the goal, and the dynamic nature of obstacles.</li>
+    </ul>
+  </li>
+  <li>Used K. Wille’s Masters thesis materials as a platform for controller &amp; micro/local planner evaluation.
+    <ul>
+      <li>Extended it to support the <a href="/posts/evaluation-scenario">evaluation scenario</a>.</li>
+    </ul>
+  </li>
+</ul>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Meeting 4 - https://bits.arek.io//posts/meeting-4 ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/meeting-4', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/meeting-4', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Global Planner Problem Definition</title>
+  <meta name="description" content="The latest version of the problem definition section of the global planning paper.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Global Planner Problem Definition">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/global-planner-problem-definition">
+  <meta property="og:description" content="The latest version of the problem definition section of the global planning paper.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/global-planner-problem-definition">
+  <meta name="twitter:title" content="Global Planner Problem Definition">
+  <meta name="twitter:description" content="The latest version of the problem definition section of the global planning paper.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Global Planner Problem Definition</h1>
+            <p>The latest version of the problem definition section of the global planning paper.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                March 25, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  5 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/planning">planning</a>
+                
+                  <a href="/tag/global">global</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p>This page provides the problem definition for the global planning paper.</p>
+
+<h2 id="background">Background</h2>
+
+<p>This system has a expansive scope that includes finding a least-cost path between any two points on the planet while avoiding dynamic obstacles in real-time considering the kinodynamic constraints of the vessel. To our knowledge, no systems with comparable scope exist, let alone for a sailboat, making it first in class. As such, it will be evaluated component-wise against existing systems with less functionality. More on the evaluation method <a href="/posts/evaluation-scenario">here</a>.</p>
+
+<h2 id="challenges">Challenges</h2>
+<p>Because of no-go zones, sailing comes with a unique control challenge, requiring discontinuous “actions”.</p>
+
+<p><em>TODO: Expand on this</em></p>
+
+<h2 id="global">Global</h2>
+<p>This system is tasked with finding a least-cost path between any two points on the planet, as long as they are in connected water bodies.</p>
+
+<p>Our solution provides a method for optimal planet-level planning with time-dependent anisotriopic risks. Using a geodesic grid, the issues introduced by map projections are avoided and optimal paths can easily be generated across the poles.  Moreover, the nearly equidistant grid naturally reduces the disparity between the time taken to travel edges. This is critical being able to effectively use time-based risks such as weather.</p>
+
+<p><em>TODO: Expand on the benefits of using a geodesic grid and what it is</em></p>
+
+<p><em>TODO: Expand on:</em></p>
+<ul>
+  <li>Augment the geodesic graph by making distant neighbours available. This will double the angular resolution available to the vessel at any time, offering the following benefits:
+    <ul>
+      <li>Significantly reduce the tendency for the path to travel along the geodesic grid’s original geometry.</li>
+      <li>Increase the accuracy/benefit of modeling vessel performance against apparent wind.</li>
+      <li>Note: watch for problems with hitting obstacles by “hopping” over them.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><em>TODO: Expand on:</em></p>
+<ul>
+  <li>Assign a value to time steps.</li>
+  <li>Proposed strategy for an accurate time step length:
+    <ul>
+      <li>Store the minimum &amp; maximum edge lengths seen while computing them all at the end of geodesic grid generation.</li>
+      <li>Set the time step length should be the average time required to travel one-half of their difference.
+        <ul>
+          <li>This will allow for the accurate propagation of time as planning goes on, keeping dynamic risks in sync with the time at which the vessel is believed to be at the given location.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Evaluate the runtime and solution performance of the planner using various time step lengths.
+    <ul>
+      <li>Compare how disparate the solution time is between using the accurate time step length computation and one time step per any edge.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The cost function, <script type="math/tex">C</script>, is defined as the sum of the following components:</p>
+
+<script type="math/tex; mode=display">C_1(x, t, u) = Time(x, t, u)</script>
+
+<script type="math/tex; mode=display">C_2(x, t, u) = Time(x, t, u)</script>
+
+<script type="math/tex; mode=display">Time(x, t, u) = CorrectedDistance(x, u, Weather.Wind.Direction(x, t)) / PolarSpeedTable(x, Weather.Wind.Speed(x, t))</script>
+
+<ul>
+  <li><script type="math/tex">Time</script> is the time required to traverse <script type="math/tex">EdgeDistance</script> given the predicted weather conditions.</li>
+  <li>This allows us to generate routes that maximize the performance of the vessel.
+    <ul>
+      <li>The model used for computing velocity will likely be a implemented as a polar speed diagram (look up table) since the motion is considered holonomic.</li>
+    </ul>
+  </li>
+  <li>As with the distance heuristic, the corrected distance must be used to compute the time cost.</li>
+  <li><script type="math/tex">kFastestEdgeTime</script> is the shortest amount of time that any edge in the geodesic grid can be traversed.
+    <ul>
+      <li>Subtracting this improves the heuristic’s ability to closely model the true cost of any edge. In other words, it avoids the inflation of true cost relative to the heuristic.</li>
+    </ul>
+  </li>
+  <li><script type="math/tex">WeatherRisk</script> is calculated using the expected wind speed and wave height at the time the vessel will be there.</li>
+  <li>This component should only be non-zero if there is a considerable risk.</li>
+</ul>
+
+<p><em>TODO: TOPO Risk</em></p>
+<ul>
+  <li><script type="math/tex">TopographicalRisk</script> is used to model the static risk associated with specific areas.
+    <ul>
+      <li>e.g. Shipping lanes, shallow water, narrow passages, fishing areas.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="proposed-solutions">Proposed solutions</h2>
+
+<h3 id="pseudocode">Pseudocode</h3>
+
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">function</span> <span class="n">A</span><span class="o">*</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">goal</span><span class="p">)</span>
+    <span class="n">Priority</span> <span class="n">Queue</span> <span class="n">open_set</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="n">TimeIndexValueMap</span> <span class="n">visited</span><span class="p">;</span>
+
+    <span class="c1">// Add start state.
+</span>    <span class="n">open_set</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">start_</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">heuristic_</span><span class="p">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">start_</span><span class="p">,</span> <span class="n">target_</span><span class="p">));</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">start_</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">VisitedStateData</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="p">{</span><span class="n">kInvalidHexVertexId</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
+
+    <span class="c1">// TODO(areksredzki): There is currently no check to see that the location is at all reachable.
+</span>    <span class="c1">// Since there are no bounds on the time dimension, the pathfinder will run forever.
+</span>    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">open_set</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">AStarVertex</span> <span class="n">current</span> <span class="o">=</span> <span class="n">open_set</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+      <span class="n">open_set</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+      <span class="c1">// The best data for this IdTimeIndex up util now.
+</span>      <span class="n">VisitedStateData</span> <span class="n">current_data</span> <span class="o">=</span> <span class="n">visited</span><span class="p">[</span><span class="n">current</span><span class="p">.</span><span class="n">id_time_index</span><span class="p">()];</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="n">hex_vertex_id</span><span class="p">()</span> <span class="o">==</span> <span class="n">target_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ConstructPath</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="n">id_time_index</span><span class="p">(),</span> <span class="n">visited</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">const</span> <span class="n">HexVertex</span> <span class="o">&amp;</span><span class="n">vertex</span> <span class="o">=</span> <span class="n">planet_</span><span class="p">.</span><span class="n">vertex</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="n">hex_vertex_id</span><span class="p">());</span>
+
+      <span class="c1">// Process edges to neighbours
+</span>      <span class="k">for</span> <span class="p">(</span><span class="n">HexVertexId</span> <span class="n">neighbour_id</span> <span class="o">:</span> <span class="n">vertex</span><span class="p">.</span><span class="n">neighbours</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Calculate the cost and time between the current vertex and this neighbour.
+</span>        <span class="k">auto</span> <span class="n">cost_time</span> <span class="o">=</span> <span class="n">cost_calculator_</span><span class="p">.</span><span class="n">calculate_target</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="n">hex_vertex_id</span><span class="p">(),</span> <span class="n">neighbour_id</span><span class="p">,</span> <span class="n">current</span><span class="p">.</span><span class="n">time</span><span class="p">());</span>
+
+        <span class="c1">// Total cost from the start to this neighbour.
+</span>        <span class="kt">uint32_t</span> <span class="n">neighbour_cost</span> <span class="o">=</span> <span class="n">current_data</span><span class="p">.</span><span class="n">cost</span> <span class="o">+</span> <span class="n">cost_time</span><span class="p">.</span><span class="n">cost</span><span class="p">;</span>
+
+        <span class="c1">// Heuristic cost from this neighbour to the target.
+</span>        <span class="kt">uint32_t</span> <span class="n">heuristic_cost</span> <span class="o">=</span> <span class="n">heuristic_</span><span class="p">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">neighbour_id</span><span class="p">,</span> <span class="n">target_</span><span class="p">);</span>
+
+        <span class="n">AStarVertex</span><span class="o">::</span><span class="n">IdTimeIndex</span> <span class="n">neighbour_id_time_index</span><span class="p">(</span><span class="n">neighbour_id</span><span class="p">,</span> <span class="n">cost_time</span><span class="p">.</span><span class="n">time</span><span class="p">);</span>
+
+        <span class="k">auto</span> <span class="n">item</span> <span class="o">=</span> <span class="n">visited</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">neighbour_id_time_index</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">==</span> <span class="n">visited</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">||</span> <span class="n">neighbour_cost</span> <span class="o">&lt;</span> <span class="n">item</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">cost</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">==</span> <span class="n">visited</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// Create the VisitedData instance.
+</span>            <span class="n">visited</span><span class="p">[</span><span class="n">neighbour_id_time_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">VisitedStateData</span><span class="p">{</span><span class="n">neighbour_cost</span><span class="p">,</span>  <span class="n">current</span><span class="p">.</span><span class="n">id_time_index</span><span class="p">()};</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Update the members of the existing VisitedData instance.
+</span>            <span class="n">item</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">=</span> <span class="p">{</span><span class="n">neighbour_cost</span><span class="p">,</span>  <span class="n">current</span><span class="p">.</span><span class="n">id_time_index</span><span class="p">()};</span>
+          <span class="p">}</span>
+
+          <span class="c1">// Add the neighbour to the open set in place (no copy/move operations apart from shuffling the priority_queue).
+</span>          <span class="n">open_set</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">neighbour_id_time_index</span><span class="p">,</span> <span class="n">neighbour_cost</span> <span class="o">+</span> <span class="n">heuristic_cost</span><span class="p">);</span>
+       <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">failure</span>
+
+<span class="n">function</span> <span class="n">ConstructPath</span><span class="p">(</span><span class="n">cameFrom</span><span class="p">,</span> <span class="n">current</span><span class="p">)</span>
+    <span class="n">total_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">current</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">current</span> <span class="n">in</span> <span class="n">cameFrom</span><span class="p">.</span><span class="n">Keys</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">cameFrom</span><span class="p">[</span><span class="n">current</span><span class="p">]</span>
+        <span class="n">total_path</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total_path</span>
+</code></pre>
+</div>
+
+<p><em>Last updated: March 30th, 2017</em></p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Global Planner Problem Definition - https://bits.arek.io//posts/global-planner-problem-definition ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/global-planner-problem-definition', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/global-planner-problem-definition', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

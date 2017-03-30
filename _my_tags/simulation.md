@@ -1,4 +1,0 @@
----
-slug: simulation
-name: Simulation
----

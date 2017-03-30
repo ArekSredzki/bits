@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Perception for Autonomous Sailboats</title>
+  <meta name="description" content="An overview of sensing in autonomous sailboats.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Perception for Autonomous Sailboats">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/perception">
+  <meta property="og:description" content="An overview of sensing in autonomous sailboats.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/perception">
+  <meta name="twitter:title" content="Perception for Autonomous Sailboats">
+  <meta name="twitter:description" content="An overview of sensing in autonomous sailboats.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Perception for Autonomous Sailboats</h1>
+            <p>An overview of sensing in autonomous sailboats.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                March 9, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/perception">perception</a>
+                
+                  <a href="/tag/control">control</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <blockquote>
+  <p>This is an early draft.</p>
+</blockquote>
+
+<h2 id="background">Background</h2>
+<p>TBD</p>
+
+<h2 id="pose">Pose</h2>
+
+<h3 id="position">Position</h3>
+<ul>
+  <li>D-GPS is more than accurate enough for most applications
+    <ul>
+      <li>Clear view of the sky allows for cm-level accuracy or better in most conditions.</li>
+      <li>High data rate up to 20Hz</li>
+    </ul>
+  </li>
+  <li>Further localization is hard because everything is moving</li>
+  <li>Heading over ground</li>
+  <li>Speed over ground</li>
+  <li>Course over ground</li>
+  <li>Raw 6DOF IMU data</li>
+</ul>
+
+<h3 id="wind">Wind</h3>
+<p>On vessel readings are apparent values, but position data can be used to find true values.
+Though sailboats generally sail by apparent wind, very good results can be determined from noisy sensors by filtering on the true values and then converting back to relative for control.</p>
+<ul>
+  <li>With this method, one can get accurate apparent wind values at the same rate as position data.</li>
+  <li>This sensor fusion architecture significantly improves the performance of simple and advanced controllers alike.</li>
+</ul>
+
+<h4 id="mechanical-wind-sensor">Mechanical wind sensor</h4>
+<ul>
+  <li>Provides wind direction and sometimes wind speed, but are measured separately</li>
+  <li>Inexpensive</li>
+  <li>Delicate in practice and can be easily damaged
+    <ul>
+      <li>Not recommended for mission-critical usage or long distance voyages</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="ultrasonic-wind-sensor">Ultrasonic wind sensor</h4>
+<ul>
+  <li>Very accurate</li>
+  <li>Expensive (~$800 CAD for a model with readings at 4Hz)</li>
+  <li>Resilient to physical damage &amp; noisy readings from water</li>
+  <li>Apparent wind speed</li>
+  <li>Apparent wind angle</li>
+  <li>Also provides air temperature readings</li>
+</ul>
+
+<h2 id="environment">Environment</h2>
+
+<h3 id="obstacles">Obstacles</h3>
+<h4 id="ais">AIS</h4>
+<ul>
+  <li>Generally radio, sometimes available over satellite as well</li>
+  <li>Relatively long range (~10–20 nautical miles)</li>
+  <li>Widely used by ships because of legal requirements but cannot be used as the sole ship detection method
+    <ul>
+      <li>Some ships will break the law and not transmit (especially fishing vessels)</li>
+      <li>Small vessels do not require AIS</li>
+    </ul>
+  </li>
+  <li>Minimally provides:
+    <ul>
+      <li>Vessel identifier &amp; position of ship</li>
+      <li>Position (GPS Coordinates) &amp; accuracy
+        <ul>
+          <li>No <em>guarantees</em> for accuracy</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Variably provides additional information, notably:
+    <ul>
+      <li>Navigation status</li>
+      <li>Heading over ground</li>
+      <li>Speed over ground</li>
+      <li>Course over ground</li>
+      <li>Data timestamp</li>
+    </ul>
+  </li>
+  <li>Transmits data every 2 to 10 seconds depending on a vessel’s speed while underway, and every 3 minutes while a vessel is at anchor.</li>
+  <li>Every 6 minutes (variably) transmits:
+    <ul>
+      <li>Vessel dimensions</li>
+      <li>Vessel type and payload</li>
+      <li>Location of reported position relative to ship center</li>
+      <li>Type of positioning system</li>
+      <li>Destination</li>
+    </ul>
+  </li>
+  <li>Can be used by adversaries</li>
+</ul>
+
+<h4 id="infrared">Infrared</h4>
+<ul>
+  <li>Passive</li>
+  <li>Low power</li>
+  <li>Works day &amp; night but needs different modes of operation</li>
+  <li>Detects near-surface obstacles like logs that are hard to detect just by their shape</li>
+  <li>Machine learning works</li>
+  <li>Artifacts from reflections (sunspots)</li>
+  <li>Poor performance in rain</li>
+</ul>
+
+<h4 id="lidar">LiDAR</h4>
+<ul>
+  <li>Potential for very high reliability of distinctly shaped obstacles</li>
+  <li>Works day &amp; night</li>
+  <li>No returns from still water
+    <ul>
+      <li>Less processing required</li>
+    </ul>
+  </li>
+  <li>Requires a way of distinguishing waves from</li>
+</ul>
+
+<h3 id="weather">Weather</h3>
+<ul>
+  <li>10 days of predictions are available from various services such as PredictWind.</li>
+</ul>
+
+<h3 id="waves">Waves</h3>
+<ul>
+  <li>Hard</li>
+  <li>Not critical for good performance in most conditions</li>
+</ul>
+
+<p><em>Last updated: March 9th, 2017</em></p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Perception for Autonomous Sailboats - https://bits.arek.io//posts/perception ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/perception', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/perception', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

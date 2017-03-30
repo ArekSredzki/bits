@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Meeting 7 Discussion Topics</title>
+  <meta name="description" content="Notes for meeting 7.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Meeting 7 Discussion Topics">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/meeting-7">
+  <meta property="og:description" content="Notes for meeting 7.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/meeting-7">
+  <meta name="twitter:title" content="Meeting 7 Discussion Topics">
+  <meta name="twitter:description" content="Notes for meeting 7.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Meeting 7 Discussion Topics</h1>
+            <p>Notes for meeting 7.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                March 30, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  3 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/meetings">meetings</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p><em>This is part of a series of posts that summarize my meetings with Professor Ian M. Mitchell for our own records.</em></p>
+
+<p>During the seventh meeting, on March 30th, we will discuss the following.</p>
+
+<h2 id="highlights-since-meeting-6">Highlights since Meeting 6</h2>
+<ul>
+  <li>Very early draft of <a href="/posts/global-planner-problem-definition">problem definition for global planner</a>.</li>
+  <li>Defined pseudo-code for the A*-based Global approach.</li>
+  <li>Integrate weather data into pathfinding architecture.
+    <ul>
+      <li>Researched and integrated GRIB data loading.
+        <ul>
+          <li>Supports Wind, Rain, Cloud, and Swell data.</li>
+          <li>Designed for supporting high resolution coastal data &amp; current data in the future.</li>
+        </ul>
+      </li>
+      <li>Defined the preliminary scale for time steps.</li>
+      <li>Bilinear and linear interpolation of weather data through both space and time.</li>
+    </ul>
+  </li>
+  <li>Created a polar speed plot templated data structure for fast lookup of anisotropic agent characteristics.</li>
+  <li>Display weather data in the viewer.</li>
+  <li>Read more papers about the Fast Sweeping Method.</li>
+  <li>Created a local solver for Fast Sweeping-based Global approach.
+    <ul>
+      <li>Assumed flat plane for each triangle.</li>
+      <li>Isotropic cost for now.</li>
+    </ul>
+  </li>
+  <li>Extensively researched and experimented with various bathymetry data sources.
+    <ul>
+      <li>Reached out to best options for sponsorship.</li>
+      <li>Best case:
+        <ul>
+          <li>International bathymetry at 1:8000 to 1:20,000,000
+            <ul>
+              <li>Includes additional metadata (ship wrecks, shipping lanes, etc.)</li>
+            </ul>
+          </li>
+          <li>Global bathymetry at 1:1,200,000 to 1:45,000,000</li>
+        </ul>
+      </li>
+      <li>Worst case: global bathymetry at a resolution of 30 arc-seconds (free).</li>
+    </ul>
+  </li>
+  <li>Extensive searching and organization of related works.</li>
+</ul>
+
+<h2 id="items-for-discussion">Items for discussion</h2>
+<ul>
+  <li>Tasks from last week.</li>
+  <li>Strategies for safely performing direct hops to far nodes.
+    <ul>
+      <li>This shouldn’t be a problem if the graph has a higher resolution than the risk data.
+        <ul>
+          <li>However, it’s not obvious that there wouldn’t be an edge case where this is suboptimal.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="goals-for-next-meeting">Goals for next meeting</h2>
+<ul>
+  <li>Strengthen the <a href="/posts/global-planner-problem-definition">problem definition for global planner</a> draft.</li>
+  <li>Allow for scrubbing through time in the viewer.</li>
+  <li>Allow for displaying all searched edges in viewer.</li>
+  <li>Use polar speed plot in pathfinding.</li>
+  <li>Evaluate obstacle &amp; cost handling for the vertices that are jumped over with indirect neighbours.
+    <ul>
+      <li>Proposed solution: simulate <script type="math/tex">n-1</script> points along an edge of neighbour distance <script type="math/tex">n</script> and interpolate the data values.</li>
+    </ul>
+  </li>
+  <li>Evaluate the effect of various time step sizes on path performance. The proposed a strategy for an accurate time step length:
+    <ul>
+      <li>Store the minimum &amp; maximum edge lengths seen while computing them all at the end of geodesic grid generation.</li>
+      <li>Set the time step length should be the average time required to travel one-half of their difference.
+        <ul>
+          <li>This will allow for the accurate propagation of time as planning goes on, keeping dynamic risks in sync with the time at which the vessel is believed to be at the given location.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Work on generating a performant multi-resolution bathymetry library.
+    <ul>
+      <li>Use API calls to generate a QuadTree-based format for offline use by all of the micro/local and global planners.</li>
+      <li>For a given scenario space, the source QuadTree-based format is used to create a look up map between the values and locations we care about (e.g. graph nodes).</li>
+    </ul>
+  </li>
+</ul>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Meeting 7 Discussion Topics - https://bits.arek.io//posts/meeting-7 ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/meeting-7', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/meeting-7', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

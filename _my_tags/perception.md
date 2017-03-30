@@ -1,4 +1,0 @@
----
-slug: perception
-name: Perception
----

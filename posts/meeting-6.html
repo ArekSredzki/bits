@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Meeting 6</title>
+  <meta name="description" content="A recap of meeting 6.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Meeting 6">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/meeting-6">
+  <meta property="og:description" content="A recap of meeting 6.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/meeting-6">
+  <meta name="twitter:title" content="Meeting 6">
+  <meta name="twitter:description" content="A recap of meeting 6.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Meeting 6</h1>
+            <p>A recap of meeting 6.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                March 14, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  3 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/meetings">meetings</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p><em>This is part of a series of posts that summarize my meetings with Professor Ian M. Mitchell for our own records.</em></p>
+
+<p>During the sixth meeting, on March 14th, we discussed the following.</p>
+
+<h2 id="this-weeks-highlights">This week’s highlights</h2>
+<ul>
+  <li>Defined the global pathfinding problem (mathematically).</li>
+  <li>Read the following:
+    <ul>
+      <li><a href="http://www.cs.ubc.ca/~mitchell/Talks/mitchellIROS.pdf">Ian’s IROS 2008 Workshop Slides</a></li>
+      <li>Misc. resources on HJE, FM, etc.</li>
+    </ul>
+  </li>
+  <li>Further development of the global (planet-level) planner (on server).
+    <ul>
+      <li>Augmented the geodesic graph by making distant neighbours available (neighbour reach <script type="math/tex">n</script>). This impoved the angular resolution available to the vessel at any time by a factor of <script type="math/tex">n</script>, offering the following benefits:
+        <ul>
+          <li>Significantly reduced the tendency for the path to travel along the geodesic grid’s original geometry.</li>
+          <li>Improvements to path smoothness and convergence to a smoother path.</li>
+          <li>Increase the accuracy/benefit of modeling vessel performance against apparent wind.</li>
+          <li>Not yet handled: Obstacle &amp; cost handling for the vertices that are jumped over.</li>
+        </ul>
+      </li>
+      <li>Display generated paths on the Viewer (OpenGL GUI application).
+        <ul>
+          <li>Used an additional GL_ARRAY_BUFFER containing a mapping of colour to each edge.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="global-pathfinding-viewer">Global pathfinding viewer</h3>
+<video style="width:320" poster="/assets/2017-03-14-meeting-6/sailbot-3d-viewer-thumb.png" controls="">
+  <source src="/assets/2017-03-14-meeting-6/sailbot-3d-viewer.mp4" type="video/mp4" />
+  Your browser does not support HTML5 video.
+</video>
+
+<h2 id="summary-of-discussion">Summary of discussion</h2>
+<ul>
+  <li>Reviewed the above.</li>
+  <li>Discussed:
+    <ul>
+      <li>Sampling-based planning usage for low-dim state spaces.</li>
+      <li>Mathematical notation used for formally defining planning problems.</li>
+      <li>Time-dependent vs static HJE</li>
+      <li>Hybrid FS/A* on geodesic</li>
+      <li>Anisotropy vs non-holonomic</li>
+      <li>Weather data
+        <ul>
+          <li>Interpolate both spatially and temporally.</li>
+          <li>Weather smearing
+            <ul>
+              <li>The area of risky weather patterns should be inflated as time goes on but their cost should also go down.</li>
+              <li>Should the smearing be anisotriopic?
+                <ul>
+                  <li>It’s difficult to tell whether the rate or direction of forward motion has higher uncertainty and should be smeared more.
+                    <ul>
+                      <li>Not for now but an interesting idea for future works.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Determining and use confidence of weather predictions
+            <ul>
+              <li>Use two forecast models, compared against each other to determine confidence.</li>
+              <li>Use historical data to guide decisions regarding how accurate forecasts for day <script type="math/tex">n</script> really are.</li>
+              <li>Weaken the bias of a polar table as forecast confidence goes down.
+                <ul>
+                  <li>Vessel model becomes isotropic by the end of the forecast data.
+                    <ul>
+                      <li>Elegant solution to finding paths that require more time than the forecast data provides.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Interesting research question: Would it be correct/useful to use a statically solved HJE to accelerate time-dependent queries in real time?</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="goals-for-next-meeting">Goals for next meeting</h2>
+<ul>
+  <li>Integrate weather data into pathfinding architecture.
+    <ul>
+      <li>Research and integrate GRIB data loading.
+        <ul>
+          <li>Support Wind, Rain, Cloud, and Swell data.</li>
+          <li>Keep High resolution coastal data &amp; current data in mind for later.</li>
+        </ul>
+      </li>
+      <li>Define the scale for time steps.</li>
+      <li>The proposed strategy for an accurate time step length:
+        <ul>
+          <li>Store the minimum &amp; maximum edge lengths seen while computing them all at the end of geodesic grid generation.</li>
+          <li>Set the time step length should be the average time required to travel one-half of their difference.
+            <ul>
+              <li>This will allow for the accurate propagation of time as planning goes on, keeping dynamic risks in sync with the time at which the vessel is believed to be at the given location.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Display time-dependent risks in the viewer.</li>
+      <li>Evaluate the runtime and solution performance of the planner using various time step lengths.
+        <ul>
+          <li>Compare how disparate the solution time is between using the accurate time step length computation and one time step per any edge.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Read more papers about the Fast Sweeping Method.</li>
+  <li>Create local solver for Fast Sweeping-based Global approach.
+    <ul>
+      <li>Assume flat plane for each triangle.</li>
+      <li>Isotropic cost for now.</li>
+    </ul>
+  </li>
+  <li>Define pseudo-code for the A*-based Global approach.
+    <ul>
+      <li>Update cost function to use weather data.
+        <ul>
+          <li>Requires defining a vessel model.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Think about obstacle &amp; cost handling for the vertices that are jumped over with indirect neighbours.
+    <ul>
+      <li>Proposed solution: simulate <script type="math/tex">n-1</script> points along an edge of neighbour distance <script type="math/tex">n</script> and interpolate the data values.</li>
+    </ul>
+  </li>
+  <li>Investigate bathymetry data options.</li>
+</ul>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Meeting 6 - https://bits.arek.io//posts/meeting-6 ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/meeting-6', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/meeting-6', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

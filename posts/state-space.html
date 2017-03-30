@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | State Space & Boat Model</title>
+  <meta name="description" content="A definition of the scenario state space & boat model used.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="State Space & Boat Model">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/state-space">
+  <meta property="og:description" content="A definition of the scenario state space & boat model used.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/state-space">
+  <meta name="twitter:title" content="State Space & Boat Model">
+  <meta name="twitter:description" content="A definition of the scenario state space & boat model used.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>State Space & Boat Model</h1>
+            <p>A definition of the scenario state space & boat model used.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                February 10, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  3 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/dynamics">dynamics</a>
+                
+                  <a href="/tag/control">control</a>
+                
+                  <a href="/tag/simulation">simulation</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p>To effectively design a motion planning solution, we must first define the target state space as well as a model for the vessel. This post contains a working definition of the state space &amp; boat model that I will use in my conference paper.</p>
+
+<h2 id="background">Background</h2>
+
+<p>A characteristic somewhat unique to sailboats is the constraint of “no-go” zones. These are sectors of a circle relative to the wind in which the forward-going performance of the vessel is very poor. All sailboats have a no-go zone that is “into” the wind that is referred to “irons”. The angular length, or size, of irons is heavily dependent on the physical properties of a vessel. However, it usually extends roughly <script type="math/tex">45\unicode{xb0}</script> to either side of the wind. Depending on the construction of the vessel. In addition to the nonholonomic motion dynamics of the vessel, its propulsion is heavily dependent on its angle relative to the wind.</p>
+
+<h2 id="state-space">State Space</h2>
+<h3 id="vessel-configuration">Vessel Configuration</h3>
+
+<h3 id="obstacle-data">Obstacle Data</h3>
+<p>Obstacle data will be available in the form of a three dimensional occupancy grid.</p>
+
+<p>The first two dimensions are in 2D (x, y) Euclidean space, with an additional binned time dimension.</p>
+
+<p>The height and width of each entry in the Euclidean space of the occupancy grid is 1m.</p>
+
+<p>The time interval for obstacle data is 1 second.</p>
+
+<h2 id="assumptions">Assumptions</h2>
+<p>In order to simplify and accelerate the initial development of the system, the following assumptions are made. Each of these provides room for improvement in future works.</p>
+
+<ul>
+  <li>The boat state and occupancy grid available to the planning/control systems are without noise.</li>
+  <li>The information in each cell of the occupancy grid is binary.</li>
+</ul>
+
+<h2 id="boat-model">Boat Model</h2>
+<p>In order to maximize our ability to accurately compare the performance of various controllers/planners, we define a complex physics based model for the vessel. It is worth noting that the following model is likely to be more complex than those used for the realtime systems. This will allow us to ensure that any assumptions we make to improve the performance of on-vessel systems doesn’t compromise on performance.</p>
+
+<p><em>TODO: Expand on the following discussions from meeting 4 once further experimentation has been completed</em></p>
+
+<ul>
+  <li>Discussed various approaches to simulation
+    <ul>
+      <li>Discrete time vs. ODE45</li>
+      <li>The degree of model accuracy that should be used in simulations vs planning
+        <ul>
+          <li>Physics based model vs polar speed diagram (Empirical vs Theoretical)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Control integration with planning
+    <ul>
+      <li>No-go zones make sailing an interesting challenge. When an action is to be taken, it’s</li>
+      <li>Mode based control
+        <ul>
+          <li>Line following &amp; then “tack”</li>
+          <li>Though this simplifies the necessity for the generated path to be perfectly executable</li>
+          <li>Problematic in the case of realtime obstacles
+            <ul>
+              <li>Consider interrupt-based exit of modes in the presence of an obstacle being detected in the area left for it.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>More exploration must be done in this matter. Simulating various approaches is likely the best way to move forward.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><em>Last updated: March 9th, 2017</em></p>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=State Space & Boat Model - https://bits.arek.io//posts/state-space ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/state-space', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/state-space', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Floating Bits | Behaviour Specific Scenarios</title>
+  <meta name="description" content="A definition of target scenarios, in which candidate control/planning systems will be evaluated for tuning specific edge cases.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Behaviour Specific Scenarios">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bits.arek.io//posts/behaviour-specific-scenarios">
+  <meta property="og:description" content="A definition of target scenarios, in which candidate control/planning systems will be evaluated for tuning specific edge cases.">
+  <meta property="og:site_name" content="Floating Bits">
+  <meta property="og:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://bits.arek.io//posts/behaviour-specific-scenarios">
+  <meta name="twitter:title" content="Behaviour Specific Scenarios">
+  <meta name="twitter:description" content="A definition of target scenarios, in which candidate control/planning systems will be evaluated for tuning specific edge cases.">
+  <meta name="twitter:image" content="https://bits.arek.io//assets/og-image.png">
+
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+  <link href="https://bits.arek.io//feed.xml" type="application/rss+xml" rel="alternate" title="Floating Bits Last 10 blog posts" />
+
+  
+    <link type="text/css" rel="stylesheet" href="/assets/dark.css">
+  
+</head>
+
+<body>
+  <main role="main">
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav reveal">
+  <a href="/" class="header-logo" title="Floating Bits">Floating Bits</a>
+  <ul class="header-links">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" target="_blank" title="RSS">
+          <span class="icon icon-social-rss"></span>
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+        <article class="article reveal">
+          <header class="article-header">
+            <h1>Behaviour Specific Scenarios</h1>
+            <p>A definition of target scenarios, in which candidate control/planning systems will be evaluated for tuning specific edge cases.</p>
+            <div class="article-list-footer">
+              <span class="article-list-date">
+                February 1, 2017
+              </span>
+              <span class="article-list-divider">-</span>
+              <span class="article-list-minutes">
+                
+                
+                  2 minute read
+                
+              </span>
+              <span class="article-list-divider">-</span>
+              <div class="article-list-tags">
+                
+                  <a href="/tag/control">control</a>
+                
+                  <a href="/tag/simulation">simulation</a>
+                
+              </div>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <p>In order to effectively design control and planning systems for an agent, we must clearly define the scenarios in which it will be evaluated and proven to be stable. What is described below is a comprehensive test suite and will likely be refined.</p>
+
+<h2 id="generic-obstacle-scenario-classes">Generic obstacle scenario classes</h2>
+<ul>
+  <li><script type="math/tex">a</script> No obstacles</li>
+  <li><script type="math/tex">b</script> Generic static obstacle test
+    <ul>
+      <li><script type="math/tex">b1</script> Static random sparse</li>
+      <li><script type="math/tex">b2</script> Static random dense</li>
+    </ul>
+  </li>
+  <li><script type="math/tex">c</script> Generic dynamic obstacle test (continuous heading)
+    <ul>
+      <li><script type="math/tex">c1</script> Other agent bow</li>
+      <li><script type="math/tex">c2</script> Other agent stern</li>
+      <li><script type="math/tex">c3</script> Other agent port</li>
+      <li><script type="math/tex">c4</script> Other agent starboard</li>
+      <li><script type="math/tex">c5</script> Multiple other agents, one from port and one from starboard</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="core-scenarios">Core scenarios</h2>
+<p>Each of the following scenarios defines various parameterizations. All of the generic obstacle scenarios classes defined above are applied to each combination of the parameters listed below.</p>
+
+<p>Let</p>
+<ul>
+  <li><script type="math/tex">\alpha</script> be the apparent wind angle relative to the stationary vessel’s heading at time <script type="math/tex">t = 0</script>.</li>
+  <li><script type="math/tex">\phi</script> be the apparent wind angle to the waypoint.</li>
+  <li><script type="math/tex">\sigma</script> be half of the upwind no-go angle.</li>
+  <li><script type="math/tex">\tau</script> be half of the downwind no-go angle.</li>
+</ul>
+
+<script type="math/tex; mode=display">\alpha \in \{-170, -160, \ldots, 180\}</script>
+
+<script type="math/tex; mode=display">\sigma \in \{35, 45, 55\}</script>
+
+<script type="math/tex; mode=display">\tau \in \{5, 10, 15\}</script>
+
+<h3 id="scenario-1-reaching-point-to-point">Scenario 1: Reaching point to point</h3>
+
+<script type="math/tex; mode=display">\phi \in \{60, 75, 90, 105, 120, 135, 150\}</script>
+
+<h3 id="scenario-2-upwind-point-to-point">Scenario 2: Upwind point to point</h3>
+
+<script type="math/tex; mode=display">\phi \in \{-20, -10, 0, 10, 20\}</script>
+
+<h3 id="scenario-3-downwind-point-to-point">Scenario 3: Downwind point to point</h3>
+
+<script type="math/tex; mode=display">\phi \in \{-160, -170, 180, 170, 160\}</script>
+
+<h2 id="test-set-caveats">Test set caveats</h2>
+<p>Additional test sets must be defined for the following:</p>
+<ul>
+  <li>Race course performance evaluation</li>
+</ul>
+
+          </div>
+
+          <div class="article-share">
+            
+            <a href="" title="Share on Twitter" onclick="window.open('https://twitter.com/home?status=Behaviour Specific Scenarios - https://bits.arek.io//posts/behaviour-specific-scenarios ', 'newwindow', 'width=500, height=225'); return false;">
+              <span class="icon icon-social-twitter"></span>
+            </a>
+            <a href="" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://bits.arek.io//posts/behaviour-specific-scenarios', 'newwindow', 'width=500, height=500'); return false;">
+              <span class="icon icon-social-facebook"></span>
+            </a>
+            <a href="" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=https://bits.arek.io//posts/behaviour-specific-scenarios', 'newwindow', 'width=550, height=400'); return false;">
+              <span class="icon icon-social-googleplus"></span>
+            </a>
+          </div>
+
+          
+        </article>
+        <footer class="footer reveal">
+  <p>
+    A blog about autonomous robotics by
+    <a href="https://arek.io" title="About me">Arek Sredzki</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+<script type="text/javascript" src="/assets/application.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Inconsolata:700', 'Nunito Sans:300,400,700']
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

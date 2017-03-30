@@ -1,4 +1,0 @@
----
-slug: meetings
-name: Meetings
----

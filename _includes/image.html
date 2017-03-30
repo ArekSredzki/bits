@@ -1,7 +1,0 @@
-{% if include.path-detail == null %}
-  <img src="{% asset_path '{{ include.path }}' %}" alt="{{ include.alt }}" />
-{% else %}
-  <a href="{% asset_path '{{ include.path-detail }}' %}" class="fluidbox-trigger">
-    <img src="{% asset_path '{{ include.path }}' %}" alt="{{ include.alt }}" />
-  </a>
-{% endif %}
